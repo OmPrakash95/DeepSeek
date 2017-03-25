@@ -5,6 +5,8 @@ from django.shortcuts import render, redirect
 from django.views.generic import View
 from .models import Video, Frame, Annotation
 #from .forms import UserForm
+import os
+import signal
 import subprocess
 
 
@@ -22,5 +24,15 @@ class VideoUpload(CreateView):
 
 
 def VideoProcess(request, pk):
-	a = subprocess.Popen(['python', 'manage.py', 'some_command'])
-	return render(request, 'deepseek/process.html',{ 'video_id' : pk})
+	video = Video.objects.get(id=pk)
+	path = video.video_path
+	a = subprocess.Popen(['python', 'process.py', 'media'+path.name[1:] ])
+	video.process_id=a.pid
+	video.save()
+	return redirect('deepseek:video-queue') 
+	#return render(request, 'deepseek/queue.html')
+	#return render(request, 'deepseek/queue.html',{ 'video_id' : pk, 'process_id' : a.pid })
+
+def VideoQueue(request):
+	queue = Video.objects.filter(process_id__gt = 0)
+	return render(request, 'deepseek/queue.html', { 'queue_list': queue })

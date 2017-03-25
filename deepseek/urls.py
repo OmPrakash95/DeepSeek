@@ -10,4 +10,7 @@ urlpatterns = [
     url(r'video/upload', views.VideoUpload.as_view(), name='video-upload'),
     #deepseek/video/process/1/
     url(r'video/(?P<pk>[0-9]+)/process/', views.VideoProcess, name='video-process'),
+    #deepseek/video/queue
+    url(r'video/queue/', views.VideoQueue, name='video-queue'),
+
 ]

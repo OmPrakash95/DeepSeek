@@ -7,6 +7,8 @@ class Video(models.Model):
 	name = models.CharField(max_length=250)
 	description = models.CharField(max_length=500)
 	video_path = models.FileField(max_length=1000)
+	process_id = models.IntegerField(default=0)
+	is_finish_process = models.BooleanField(default=False)
 
 	#def get_absolute_url(self):
 	#	return reverse('videos:detail', kwargs={'pk' : self.pk})
