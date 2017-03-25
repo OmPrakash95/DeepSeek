@@ -1,0 +1,6 @@
+<h1>This is a Index Page </h1>
+{% for video in all_videos %}
+	<br><br>Name: {{ video.name }} <br>
+	Description: {{ video.description }} <br>
+	<a href="{{ video.video_path.url }}">Link</a>
+{% endfor %}
