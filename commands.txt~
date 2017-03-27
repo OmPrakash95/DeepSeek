@@ -1,0 +1,3 @@
+python process.py media/OK_Kanmani_-_Trailer_1_-_Mani_Ratnam_A_R_Rahman_XfNQZm1.mp4
+
+ffmpeg -ss 3 -i sample2.mp4 -vf "select=gt(scene\,0.9)" -vf fps=fps=1/5 -frames:v 20 -vsync vfr out%02d.jp
