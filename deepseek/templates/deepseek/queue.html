@@ -1,3 +1,38 @@
-{% for video in queue_list %}
-	{{ video.process_id }} <br>
-{% endfor %}
+{% extends 'deepseek/base.html' %}
+
+{% block title %} Deepseek - Queue {% endblock %}
+
+{% block video_queue %} active {% endblock %}
+
+{% block body %}
+<div class="row">
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Video Processing Queue</div>
+  <!-- Table -->
+  <table class="table">
+  <tr>
+  	<th>#</th>
+  	<th>Video Title</th>
+  	<th>Video Description</th>
+  	<th>Process ID</th>
+  	<th>Finished Processing</th>
+  </tr>
+  {% for video in queue_list %}
+  <tr>
+  	<td>{{ video.id }}</td>
+  	<td>{{ video.name }}</td>
+  	<td>{{ video.description }}</td>
+  	<td>{{ video.process_id }}</td>
+  	{% if video.is_finish_process %}
+  		<td>Yes</td>
+  	{% else %}
+  		<td>No</td>
+  	{% endif %}
+  </tr>
+  {% endfor %}
+  </table>
+</div>
+</div>
+<br>
+{% endblock %}

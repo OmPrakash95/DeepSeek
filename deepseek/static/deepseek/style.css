@@ -1,0 +1,11 @@
+body{
+	background-color: rgb(251,251,251);
+}
+
+.navbar{
+	border-radius: 0;
+}
+
+.navbar-brand{
+	font-family: 'Satisfy', cursive;
+}

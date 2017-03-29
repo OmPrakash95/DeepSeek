@@ -1,3 +1,24 @@
 python process.py media/OK_Kanmani_-_Trailer_1_-_Mani_Ratnam_A_R_Rahman_XfNQZm1.mp4
 
 ffmpeg -ss 3 -i sample2.mp4 -vf "select=gt(scene\,0.9)" -vf fps=fps=1/5 -frames:v 20 -vsync vfr out%02d.jpg
+
+
+ffmpeg -i kaatruVeli.mp4 -vf "select=eq(pict_type\,I)" -vsync vfr thumb%02d.jpg //45 frames
+ffmpeg -i kaatruVeli.mp4 -vf "select=eq(pict_type\,I)" -vf "select=gt(scene\,0.1)" -vsync vfr thumb%02d.jpg //50
+ffmpeg -i kaatruVeli.mp4 -vf "select=eq(pict_type\,I)" -vf "select=gt(scene\,0.5)" -vsync vfr thumb%02d.jpg //28
+
+1-2     DESCENT
+2-3     To bad
+3-4     DESCENT
+4-5     AMAZING
+5-6     Dewcent
+0.6-0.7 Super
+7-8     NONE
+8-9     NOTBAD
+
+0.45 0.7
+
+SECONDARY: ffmpeg -i kalachashma.mp4 -frames:v 20 -vf "select=eq(pict_type\,I),select=gt(scene\,0.3)*lt(scene\,0.7)" -vsync vfr -q:v 1 thumb%02d.jpg
+
+PRIMARY:ffmpeg -i kalachashma.mp4 -vf "select=eq(pict_type\,I)" -vf "select=gt(scene\,0.3)*lt(scene\,0.7)" -vsync vfr -q:v 1 thumb%02d.jpg
+
