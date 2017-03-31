@@ -1,0 +1,2 @@
+export GOOGLE_APPLICATION_CREDENTIALS=DeepSearch-01d1b62c37e1.json 
+

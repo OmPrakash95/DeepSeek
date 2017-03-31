@@ -1,8 +1,0 @@
-python process.py media/OK_Kanmani_-_Trailer_1_-_Mani_Ratnam_A_R_Rahman_XfNQZm1.mp4
-
-ffmpeg -ss 3 -i sample2.mp4 -vf "select=gt(scene\,0.9)" -vf fps=fps=1/5 -frames:v 20 -vsync vfr out%02d.jpg
-
-
-ffmpeg -i kaatruVeli.mp4 -vf "select=eq(pict_type\,I)" -vsync vfr thumb%02d.jpg //45 frames
-ffmpeg -i kaatruVeli.mp4 -vf "select=eq(pict_type\,I)" -vf "select=gt(scene\,0.1)" -vsync vfr thumb%02d.jpg //50
-ffmpeg -i kaatruVeli.mp4 -vf "select=eq(pict_type\,I)" -vf "select=gt(scene\,0.5)" -vsync vfr thumb%02d.jpg //28

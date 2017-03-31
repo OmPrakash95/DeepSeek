@@ -3,12 +3,29 @@ from django.db import models
 from django.core.urlresolvers import reverse
 # Create your models here.
 
+
 class Video(models.Model):
 	name = models.CharField(max_length=250)
 	description = models.CharField(max_length=500)
-	video_path = models.FileField(max_length=1000)
+	video_path = models.FileField(upload_to='temp')
 	process_id = models.IntegerField(default=0)
 	is_finish_process = models.BooleanField(default=False)
+
+	def save(self, *args, **kwargs):
+		super(Video, self).save(*args, **kwargs)
+		video_path=self.video_path
+		if video_path:
+			oldfile = self.video_path.name
+			newfile= str(self.pk)+'.mp4'
+
+			if newfile !=oldfile:
+				self.video_path.storage.delete(newfile)
+				self.video_path.storage.save(newfile,video_path)
+				self.video_path.name=newfile
+				self.video_path.close()
+				self.video_path.storage.delete(oldfile)
+
+		super(Video, self).save(*args, **kwargs)
 
 	#def get_absolute_url(self):
 	#	return reverse('videos:detail', kwargs={'pk' : self.pk})

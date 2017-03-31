@@ -5,9 +5,8 @@ import shlex
 import re
 
 def main():
-    filename = str(sys.argv[1])
-    log_file_name = filename+'.txt'
-    
+    filename = str(sys.argv[1]) 
+    print "Filename: %s" %(filename)   
     length = getLength(filename)
     every = 10 #(int(length)*5)/60
     no_ss = int(length)/every
