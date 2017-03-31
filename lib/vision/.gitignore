@@ -2,4 +2,4 @@
 img/*
 
 # exception to the rule
-!img/.gitkeep 
+!img/readme.md
