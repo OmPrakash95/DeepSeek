@@ -4,8 +4,9 @@ from collections import Counter
 import operator 
 
 
-def FileRename(f_regex,timestamps):
-	files = glob.glob('8.mp4*.jpg')
+def FileRename(media_dir,video_id,timestamps):
+	print "INFO: Reading Directory %s for %s.mp4 files" % (media_dir,video_id)
+	files = glob.glob(media_dir+video_id+'.mp4*.jpg')
 
 	counter=1
 	for oldname, ts in zip(sorted(files),timestamps):
@@ -15,9 +16,8 @@ def FileRename(f_regex,timestamps):
 		counter = counter+1
 		os.rename(oldname,newname)
 
-	newfiles = glob.glob('8_*.jpg')
+	newfiles = glob.glob(media_dir+video_id+'_*.jpg')
+	newfiles_count = len(newfiles)
+	return newfiles, newfiles_count
 
-	pprint(newfiles)
-
-	print "Length %d" %(len(newfiles))
 
