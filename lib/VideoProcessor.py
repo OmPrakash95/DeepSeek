@@ -5,7 +5,7 @@ import shlex
 import re
 import os
 
-def takeScreenshot(filename, every, no_ss):
+def takeScreenshot(filename):
 #	command = 'ffmpeg -ss 3 -i '+str(filename)+' -vf "select=gt(scene\,0.3)" -vf fps=fps=1/'+str(every)+' -frames:v '+str(no_ss)+' -vsync vfr '+str(filename)+'%02d.jpg'
 	print "INFO: GETTING SCREENSHOT FROM FILE %s" % (filename)
 	os.environ["FFREPORT"] = "file=/home/prakash/neural/media/ffreport.log"	
