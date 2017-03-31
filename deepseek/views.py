@@ -26,7 +26,7 @@ class VideoUpload(CreateView):
 def VideoProcess(request, pk):
 	video = Video.objects.get(id=pk)
 	path = video.video_path
-	a = subprocess.Popen(['python', 'VideoProcess.py', 'media/'+str(video.id)+'.mp4' ])
+	a = subprocess.Popen(['python', 'driver.py', 'media/'+str(video.id)+'.mp4' ])
 	video.process_id=a.pid
 	video.save()
 	return redirect('deepseek:video-queue') 

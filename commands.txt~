@@ -8,7 +8,6 @@ ffmpeg -i kaatruVeli.mp4 -vf "select=eq(pict_type\,I)" -vf "select=gt(scene\,0.1
 ffmpeg -i kaatruVeli.mp4 -vf "select=eq(pict_type\,I)" -vf "select=gt(scene\,0.5)" -vsync vfr thumb%02d.jpg //28
 
 1-2     DESCENT
-
 2-3     To bad
 3-4     DESCENT
 4-5     AMAZING
@@ -27,5 +26,3 @@ NEW:ffmpeg -i 4.mp4 -vf "select=eq(pict_type\,I)" -vf "select=gt(scene\,0.3)*lt(
 
 
 export FFREPORT=file=/home/prakash/neural/media/ffreport.log
-
-FINAL : ffmpeg -i 3.mp4 -vf "select=eq(pict_type\,I)" -vf "select=gt(scene\,0.3)*lt(scene\,0.7)" -vsync vfr -q:v 1 3%02d.jpg
