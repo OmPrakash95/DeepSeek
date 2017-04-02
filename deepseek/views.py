@@ -1,3 +1,4 @@
+from django.views.decorators.csrf import csrf_exempt
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
@@ -41,10 +42,21 @@ def VideoQueue(request):
 	queue = Video.objects.filter(process_id__gt = 0)
 	return render(request, 'deepseek/queue.html', { 'queue_list': queue })
 
+@csrf_exempt
 def FrameAdd(request,seconds,file_name,vid):
 	#url(r'frame/(?P<seconds>[0-9]+)/media/(?P<file_name>[\w.]{0,256})/video/(?P<video_id>[0-9]+)/add/', views.FrameAdd, name='frame-add'),
 	video = Video.objects.get(id=vid) # assuming pers_type is unique
 	Frame.objects.create(video_id=video, at_duration=seconds, frame_path='media/'+file_name)
 	
 	return render(request, 'deepseek/frameadd.html')
-	
+
+def AnnAdd(request, label, frame_id):
+	annotation = Annotation.objects.filter(annotation_name__contains = label )
+	response = ''
+	if annotation is None:
+		response = "No Label Called "+label
+	else:
+		response = "There is a Label called "+label
+	Annotation.objects.create(annotation_name=label.lower(), frames=str(frame_id)+',')
+
+	return render(request, 'deepseek/annadd.html')

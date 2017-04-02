@@ -2,6 +2,7 @@ import sys
 from lib.VideoProcessor import getLength, takeScreenshot
 from lib.FFMpegLogProcessor import processLog
 from lib.FileProcessor import FileRename
+from lib.FrameProcesor import ProcessFrame
 from pprint import pprint
 
 def main():
@@ -9,15 +10,16 @@ def main():
     media_dir = 'media/'
     video_name = filename[6:]
     video_id = video_name[:-4]
-    print "Filename: %s" %(filename)   
+    print "INFO: Filename: %s" %(filename)   
     video_length = getLength(filename)
     takeScreenshot(filename)
-    print "Length of the video is %d " % (video_length)
+    print "INFO: Length of the video is %d " % (video_length)
     timestamp_list=processLog()
-    print "Media Dir: %s Video ID: %s Timestamp_list: " %(media_dir,video_id)
+    print "INFO: Media Dir: %s Video ID: %s Timestamp_list: " %(media_dir,video_id)
     #pprint(timestamp_list)
-    newfile_list,newfile_count = FileRename(media_dir,video_id,timestamp_list)
-    f
+    newfiles_list,newfiles_count = FileRename(media_dir,video_id,timestamp_list)
+    print "INFO: Count of Files after renaming: %d" %(newfiles_count)
+    ProcessFrames(newfiles_list)
     #pprint(newname_list)
 
 if __name__== "__main__":
