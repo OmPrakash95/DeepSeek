@@ -1,3 +1,4 @@
+from django.db.models.functions import Concat, Value
 from django.views.decorators.csrf import csrf_exempt
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -50,13 +51,17 @@ def FrameAdd(request,seconds,file_name,vid):
 	
 	return render(request, 'deepseek/frameadd.html')
 
+@csrf_exempt
 def AnnAdd(request, label, frame_id):
-	annotation = Annotation.objects.filter(annotation_name__contains = label )
+	annotation = Annotation.objects.filter(annotation_name__contains = label ).first()
 	response = ''
-	if annotation is None:
-		response = "No Label Called "+label
+	if not annotation:
+		#Add New Annotation
+		Annotation.objects.create(annotation_name=label.lower(), frames=str(frame_id)+',')
+		response = "No Label Called "+label+"<br><h1>Added New!</h1>"
 	else:
-		response = "There is a Label called "+label
-	Annotation.objects.create(annotation_name=label.lower(), frames=str(frame_id)+',')
-
-	return render(request, 'deepseek/annadd.html')
+		#Update existing Annotation
+		Annotation.objects.filter(pk=annotation.id).update(frames=Concat('frames',Value(str(frame_id)+',')))
+		response = "There is a Label called "+label+"<br>Appending new Label"
+	#Annotation.objects.create(annotation_name=label.lower(), frames=str(frame_id)+',')
+	return render(request, 'deepseek/annadd.html', { 'response': response })

@@ -1,17 +1,29 @@
 import requests
 from pprint import pprint
+from vision.VisionDriver import getLabelsFromFrame
 
 def remove_cruft(s):
 	return s[6:]
 
 def ProcessFrames(frame_list, video_id):
 	filenames = [remove_cruft(s) for s in frame_list]
-	#FIRST Call vision and get Labels
 	
 	for frame_file in filenames:
+		#FIRST Call vision and get Labels
+		label_list = getLabelsFromFrame(frame_file)
+		for label in label_list:
+			print "%s " %(label.description)
+
+		#UPDATE Labels to frames Table
+		##frame_id = addFrame(frame_file)
+		#UPDATE ANNOTATE table
+		##addAnnotation(label_list,frame_id)
+		#http://127.0.0.1:8000/deepseek/ann/facial/frame/140/add/
+	
+	"""for frame_file in filenames:
 		splitted_name = frame_file.split("_")
 		url = "http://127.0.0.1:8000/deepseek/frame/"+splitted_name[1]+"/media/"+frame_file+"/video/"+splitted_name[0]+"/add/"
-		r = requests.post(url)
+		r = requests.post(url)"""
 
 
 if __name__ == "__main__":
