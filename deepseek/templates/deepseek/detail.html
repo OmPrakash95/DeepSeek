@@ -1,0 +1,32 @@
+{% extends 'deepseek/base.html' %}
+
+{% block title %}Video Details{% endblock %}
+
+
+{% block body %}
+	<h1>{{ video.name }}</h1>
+	<hr>
+	<div class="row">
+		<div class="col-md-4">
+	      <video width="350" controls>
+	      <source src="{{ video.video_path.url }}" type="video/mp4">
+	      </video>		
+		</div>
+		<div class="col-md-8" style="background-color:white">
+			<h3>Description</h3><hr>
+			<p>{{ video.description }}</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-default">
+  				<div class="panel-heading">
+    				<h3 class="panel-title">Frames</h3>
+  				</div>
+  				<div class="panel-body">
+    				Panel content
+  				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

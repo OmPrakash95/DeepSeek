@@ -39,9 +39,10 @@ class Video(models.Model):
 class Frame(models.Model):
 	video_id = models.ForeignKey(Video, on_delete=models.CASCADE)
 	at_duration = models.IntegerField()
+	frame_path = models.CharField(default='',max_length=100)
 
 	def __str__(self):
-		return self.video_id+' - '+ self.at_duration
+		return str(self.video_id)+' - '+ str(self.at_duration)
 
 class Annotation(models.Model):
 	annotation_name = models.CharField(max_length=100)

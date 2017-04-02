@@ -22,6 +22,10 @@ class VideoUpload(CreateView):
 	model = Video
 	fields = ['name', 'description', 'video_path']
 
+class VideoDetails(generic.DetailView):
+	model = Video
+	template_name = 'deepseek/detail.html'
+
 
 def VideoProcess(request, pk):
 	video = Video.objects.get(id=pk)
@@ -36,3 +40,11 @@ def VideoProcess(request, pk):
 def VideoQueue(request):
 	queue = Video.objects.filter(process_id__gt = 0)
 	return render(request, 'deepseek/queue.html', { 'queue_list': queue })
+
+def FrameAdd(request,seconds,file_name,vid):
+	#url(r'frame/(?P<seconds>[0-9]+)/media/(?P<file_name>[\w.]{0,256})/video/(?P<video_id>[0-9]+)/add/', views.FrameAdd, name='frame-add'),
+	video = Video.objects.get(id=vid) # assuming pers_type is unique
+	Frame.objects.create(video_id=video, at_duration=seconds, frame_path='media/'+file_name)
+	
+	return render(request, 'deepseek/frameadd.html')
+	
