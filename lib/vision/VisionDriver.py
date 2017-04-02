@@ -4,7 +4,7 @@ import sys
 from google.cloud import vision
 
 def getLabelsFromFrame(frame_name):
-	os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "file=/home/prakash/neural/DeepSearch-01d1b62c37e1.json"	
+	os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.environ['PROJ_ROOT']+"DeepSearch-01d1b62c37e1.json"	
 	vision_client = vision.Client()
 	file_name = 'media/'+frame_name
 
@@ -15,8 +15,10 @@ def getLabelsFromFrame(frame_name):
     		image = vision_client.image(content=content)
 		
 	labels = image.detect_labels()
+
 	if len(labels)>0:
 		print "INFO: Labels NOT found"
 	else:
 		print "INFO: Labels Found"
-		return labels
+	
+	return labels

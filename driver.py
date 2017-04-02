@@ -1,4 +1,5 @@
 import sys
+import os
 from lib.VideoProcessor import getLength, takeScreenshot
 from lib.FFMpegLogProcessor import processLog
 from lib.FileProcessor import FileRename
@@ -23,5 +24,6 @@ def main():
     #pprint(newname_list)
 
 if __name__== "__main__":
+  os.environ["PROJ_ROOT"] = "/home/prakash/neural/"
   main()
   

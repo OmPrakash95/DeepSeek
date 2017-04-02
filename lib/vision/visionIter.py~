@@ -6,7 +6,7 @@ import sys
 from google.cloud import vision
 
 # Instantiates a client
-for i in range(2):
+for i in range(7):
 	vision_client = vision.Client()
 
 	# The name of the image file to annotate
