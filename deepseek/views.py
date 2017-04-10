@@ -8,7 +8,6 @@ from django.views.generic import View
 from .models import Video, Frame, Annotation
 from django.http import HttpResponse
 
-#from .forms import UserForm
 import os
 import signal
 import subprocess
@@ -78,6 +77,27 @@ def VideoFinish(request, pk):
 
 def VideoSearch(request):
 	query = request.GET['q']
-	frames = Annotation.objects.filter(annotation_name__contains = query)
+	frame_list = []
+	thumb_set = []
+	time_set = []
+	video_name_set = []
+	video_link_set = []
+	
 
-	return render(request, 'deepseek/results.html', {'results': frames})
+	framesets = Annotation.objects.filter(annotation_name__contains = query)
+	for frameset in framesets:
+		frame_list.extend(filter( None, frameset.frames.split(',')))
+
+	for frame_id in frame_list:
+		some_id = int(frame_id)
+		frame = Frame.objects.get(id=some_id)
+		thumb_set.extend(frame.frame_path.url)
+		time_set.extend(str(frame.at_duration))
+
+		video = Video.objects.get(id=frame.video_id.id)
+		video_name_set.extend(video.name)
+		video_link_set.extend(video.video_path.url)
+		
+		results = zip(thumb_set,time_set, video_name_set, video_link_set )
+	return render(request, 'deepseek/results.html', {'results': results })
+	#return render(request, 'deepseek/results.html', {'thumbs': thumb_set, 'timestamps': thumb_set, 'videos': video_name_set, 'paths': video_link_set})

@@ -3,5 +3,9 @@
 {% block title %} Results {% endblock %}
 
 {% block body %}
-{{ results }}
+
+{% for thumb, timestamp, name, path in results %}
+   {{ thumb }} - {{ timestamp }} - {{ name }} - {{ path }}
+{% endfor %}
+
 {% endblock %}
