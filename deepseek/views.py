@@ -47,9 +47,9 @@ def VideoQueue(request):
 def FrameAdd(request,seconds,file_name,vid):
 	#url(r'frame/(?P<seconds>[0-9]+)/media/(?P<file_name>[\w.]{0,256})/video/(?P<video_id>[0-9]+)/add/', views.FrameAdd, name='frame-add'),
 	video = Video.objects.get(id=vid) # assuming pers_type is unique
-	Frame.objects.create(video_id=video, at_duration=seconds, frame_path='media/'+file_name)
+	frame = Frame.objects.create(video_id=video, at_duration=seconds, frame_path='media/'+file_name)
 	
-	return render(request, 'deepseek/frameadd.html')
+	return render(request, 'deepseek/frameadd.html', {'frame': frame.id})
 
 @csrf_exempt
 def AnnAdd(request, label, frame_id):

@@ -11,8 +11,14 @@ def ProcessFrames(frame_list, video_id):
 	for frame_file in filenames:
 		#FIRST Call vision and get Labels
 		label_list = getLabelsFromFrame(frame_file)
+
+		splitted_name = frame_file.split("_")
+		frame_url = "http://127.0.0.1:8000/deepseek/frame/"+splitted_name[1]+"/media/"+frame_file+"/video/"+splitted_name[0]+"/add/"
+		r = requests.post(frame_url)
+
 		for label in label_list:
-			print "%s " %(label.description)
+			label_url="http://127.0.0.1:8000/deepseek/ann/"+label.description+"/frame/"+r.text+"/add/"
+			print "%s => %s " %(label.description,r.text)
 
 		#UPDATE Labels to frames Table
 		##frame_id = addFrame(frame_file)

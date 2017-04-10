@@ -16,9 +16,5 @@ def getLabelsFromFrame(frame_name):
 		
 	labels = image.detect_labels()
 
-	if len(labels)>0:
-		print "INFO: Labels NOT found"
-	else:
-		print "INFO: Labels Found"
-	
+	print "INFO: Labels Found"
 	return labels
