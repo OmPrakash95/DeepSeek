@@ -82,6 +82,7 @@ def VideoSearch(request):
 	time_set = []
 	video_name_set = []
 	video_link_set = []
+	video_desc_set = []
 	
 
 	framesets = Annotation.objects.filter(annotation_name__contains = query)
@@ -91,13 +92,15 @@ def VideoSearch(request):
 	for frame_id in frame_list:
 		some_id = int(frame_id)
 		frame = Frame.objects.get(id=some_id)
-		thumb_set.extend(frame.frame_path.url)
-		time_set.extend(str(frame.at_duration))
+		thumb_set.append(frame.frame_path)
+		time_set.append(str(frame.at_duration))
 
 		video = Video.objects.get(id=frame.video_id.id)
-		video_name_set.extend(video.name)
-		video_link_set.extend(video.video_path.url)
+		video_name_set.append(video.name)
+		video_link_set.append(video.video_path)
+		video_desc_set.append(video.description)
 		
-		results = zip(thumb_set,time_set, video_name_set, video_link_set )
-	return render(request, 'deepseek/results.html', {'results': results })
+		
+	zippy = zip(thumb_set, time_set, video_name_set, video_link_set, video_desc_set)
+	return render(request, 'deepseek/results.html', {'zipped_data': zippy, 'q': query })
 	#return render(request, 'deepseek/results.html', {'thumbs': thumb_set, 'timestamps': thumb_set, 'videos': video_name_set, 'paths': video_link_set})

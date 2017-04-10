@@ -3,9 +3,31 @@
 {% block title %} Results {% endblock %}
 
 {% block body %}
-
-{% for thumb, timestamp, name, path in results %}
-   {{ thumb }} - {{ timestamp }} - {{ name }} - {{ path }}
+<h1>Search Results for: <i> '{{ q }}' </i> </h1> <hr>
+{% for thumb, timestamps, name, path, desc in zipped_data %}
+   <div class="row">
+     <div class="col-md-4">
+       <img src="/{{ thumb }}" width="330px">
+     </div>
+     <div class="col-md-8">
+       <div class="row">
+         <div class="col-md-12">
+           <a href="/media/{{ path }}"><h3>{{ name }}</h3></a>
+         </div>
+       </div>
+       <div class="row">
+         <div class="col-md-12">
+            <p>{{ desc }}</p>
+         </div>
+       </div>
+       <div class="row">
+         <div class="col-md-12">
+            at <strong>{{ timestamps}}</strong> Seconds
+         </div>
+       </div>
+     </div>
+   </div>
+   <hr>
 {% endfor %}
 
 {% endblock %}
