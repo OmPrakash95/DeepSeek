@@ -18,4 +18,9 @@ urlpatterns = [
     url(r'frame/(?P<seconds>[0-9]+)/media/(?P<file_name>[\w.]{0,256})/video/(?P<vid>[0-9]+)/add/', views.FrameAdd, name='frame-add'),
     #deepseek/ann/{ROMANCE}/frame/{frame ID}/insert/
     url(r'ann/(?P<label>[\w ]{0,256})/frame/(?P<frame_id>[0-9]+)/add/', views.AnnAdd, name='Ann-add'),
+    #deepseek/video/12/finish
+    url(r'video/(?P<pk>[0-9]+)/finish/', views.VideoFinish, name='video-finish'),
+    #deepseek/search?
+    url(r'^search/$', views.VideoSearch, name='video-search')
+
 ]

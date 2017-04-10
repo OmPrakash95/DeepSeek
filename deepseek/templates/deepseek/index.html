@@ -3,8 +3,25 @@
 {% block title %} Deepseek {% endblock %}
 
 {% block body %}
-<h1>Browse Videos</h1><hr>
 <div class="row">
+  <h1 class="text-center" style="font-family: 'Satisfy', cursive; font-size: 130px; padding-top: 30px">Deep Seek</h1>
+</div>
+<div class="row search" style="padding-top: 50px; padding-bottom: 30px;">
+  <div class="col-sm-8 col-sm-offset-2">
+    <form role="form" action="search" method="GET">
+            {% csrf_token %}
+            <div class="input-group">
+              <input type="text" name="q" class="form-control input-sm" style="height: 40px" placeholder="Search">
+            <span class="input-group-btn">
+              &nbsp;<input type="submit" name="search" class="btn btn-default">
+            </span>
+            </div>
+    </form>
+  </div>
+</div>
+
+<div class="row">
+<h1>Browse Videos</h1><hr>
 {% for video in all_videos %}
   <div class="col-sm-6 col-md-4">
     <div class="thumbnail">
@@ -14,7 +31,7 @@
       <div class="caption">
         <h3>{{ video.name }}</h3>
         <p>{{ video.description }}</p>
-        <p><a href="{{ video.video_path.url }}" class="btn btn-primary" role="button">Watch</a> <a href="#" class="btn btn-default" role="button">Delete</a></p>
+        <p><a href="{{ video.video_path.url }}" class="btn btn-primary" role="button">Watch</a> <a href="video/{{ video.id }}/details/" class="btn btn-default" role="button">Details</a></p>
       </div>
     </div>
   </div>

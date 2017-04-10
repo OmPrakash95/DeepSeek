@@ -6,6 +6,8 @@ from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from .models import Video, Frame, Annotation
+from django.http import HttpResponse
+
 #from .forms import UserForm
 import os
 import signal
@@ -65,3 +67,17 @@ def AnnAdd(request, label, frame_id):
 		response = "There is a Label called "+label+"<br>Appending new Label"
 	#Annotation.objects.create(annotation_name=label.lower(), frames=str(frame_id)+',')
 	return render(request, 'deepseek/annadd.html', { 'response': response })
+
+@csrf_exempt
+def VideoFinish(request, pk):
+	video = Video.objects.get(id=pk)
+	video.is_finish_process = True;
+	video.save()
+
+	return HttpResponse('')
+
+def VideoSearch(request):
+	query = request.GET['q']
+	frames = Annotation.objects.filter(annotation_name__contains = query)
+
+	return render(request, 'deepseek/results.html', {'results': frames})

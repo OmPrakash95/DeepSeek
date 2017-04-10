@@ -18,18 +18,12 @@ def ProcessFrames(frame_list, video_id):
 
 		for label in label_list:
 			label_url="http://127.0.0.1:8000/deepseek/ann/"+label.description+"/frame/"+r.text+"/add/"
-			print "%s => %s " %(label.description,r.text)
+			s = requests.post(label_url)
+			print "INFO: %s => %s " %(label.description,r.text)
 
-		#UPDATE Labels to frames Table
-		##frame_id = addFrame(frame_file)
-		#UPDATE ANNOTATE table
-		##addAnnotation(label_list,frame_id)
-		#http://127.0.0.1:8000/deepseek/ann/facial/frame/140/add/
-	
-	"""for frame_file in filenames:
-		splitted_name = frame_file.split("_")
-		url = "http://127.0.0.1:8000/deepseek/frame/"+splitted_name[1]+"/media/"+frame_file+"/video/"+splitted_name[0]+"/add/"
-		r = requests.post(url)"""
+	video_finish_url = "http://127.0.0.1:8000/deepseek/video/"+str(video_id)+"/finish/"
+	t = requests.post(video_finish_url)
+	print "INFO: Completed processing Video %s " %(str(video_id))
 
 
 if __name__ == "__main__":
