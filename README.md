@@ -6,7 +6,7 @@ DeepSeek is a Django based Media sharing platform where it enables the user to s
 ### Prerequisites
 - [Python2.7](https://www.python.org/download/releases/2.7/)
 - [Django](https://www.djangoproject.com/)
-- [MySQL](mysql.org)
+- [MySQL](http://mysql.org)
 ------------
 ### Quick Start Steps:
 - Fork the repo to your own account
