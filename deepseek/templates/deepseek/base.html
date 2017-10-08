@@ -32,7 +32,8 @@
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
-				<form class="navbar-form navbar-left" role="search" method="get" action="#">
+				<form class="navbar-form navbar-left" role="search" method="get" action="/deepseek/search">
+					{% csrf_token %}
 					<div class="form-group">
 						<input type="text" class="form-control" name="q" value="" placeholder="Search">
 					</div>
